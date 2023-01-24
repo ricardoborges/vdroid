@@ -1,0 +1,4 @@
+- forçar resolução short short = 1080 x 1920
+
+
+- gerar animes
