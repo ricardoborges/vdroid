@@ -17,9 +17,6 @@ def article(
     bing: bool = False,
     single: bool = True):
     
-    #desc = "crie um resumo do livro o lobo do mar"
-    #folder = "lobodomar"
-    #keyword = "lobo do mar jack london"
     english = False
     bing = True
     single = True
@@ -54,7 +51,6 @@ def runmovie(options):
     os.makedirs("_output", exist_ok=True)
     os.makedirs(scope.basedir, exist_ok=True)
 
-    options['final'] = " Se gostou, curta, compartilhe e se inscreva"
     options['single'] = 'False'
     options['short'] = 'False'
     options['english'] = 'False'
@@ -72,24 +68,26 @@ def runmovie(options):
 
 @yaspin(text="[movie for movie.config]\n")
 @app.command()
-def movie(file: str = typer.Option(..., prompt=True)):  
-    options = {}
-
+def movie(batch: bool = False):  
+    file ="movie.config"
     with open(file, 'r') as json_file:
         content = json_file.read()
 
     list = json.loads(content)
 
-    print(f"[batch size: {len(list)}]")
-
-    x = 0
-    for options in list:
-        print(f"[position: {x}/{len(list)}]")
-        try:
-            runmovie(options)
-            x+=1
-        except:
-            print(f"*erro {options['title']}")
+    if (batch):
+        print(f"[batch size: {len(list)}]")
+        x = 1
+        for options in list:
+            print(f"[position: {x}/{len(list)}]")
+            try:
+                runmovie(options)
+                x+=1
+            except:
+                print(f"******** erro {options['title']}")
+    else:
+        options = list[0]
+        runmovie(options)
             
 
     

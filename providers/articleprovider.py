@@ -16,7 +16,7 @@ def generateArticle(options):
             prompt = f"escreva um resumo do filme {options['title']}"
         response = create(prompt, options)
 
-    result = response['choices'][0].text + options['final']
+    result = response['choices'][0].text
     result = setup(result)
     return result
 
@@ -52,7 +52,11 @@ def setup(txt):
     txt = remove_parenteses(txt)
     txt = remove_abreviacoes(txt)
     txt = remove_lastname(txt)
+    txt = remove_lastdot(txt)
     return txt
+
+def remove_lastdot(txt):
+    return txt[:-1]
 
 def remove_abreviacoes(txt):
     txt = txt.replace("Dr.", "doutor")

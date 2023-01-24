@@ -94,15 +94,14 @@ def getScenes(options, max, totalInDisc):
         else:
             i = totalInDisc 
 
-        #bugfix  ?? title": "O Cavaleiro das Trevas" 
+        #bugfix  ?? title": "O Cavaleiro das Trevas" --nao encontra poster
         if (i == 0 and totalInDisc == 0 and not scope.posterFound):
             i = 1
 
         for item in search_results["images"]["value"]:
             if (i > max):
-                
-                x = i - 1
-                shutil.copy(vdroid_scene, f"{scope.basedir}/scene-{x}.jpg")
+            #    x = i - 1
+            #    shutil.copy(vdroid_scene, f"{scope.basedir}/scene-{x}.jpg")
                 return
             try:
                 save(item["contentUrl"], i, options)

@@ -1,5 +1,5 @@
 import azure.cognitiveservices.speech as speechsdk
-import scope
+import scope, sys
 
 key = "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"
 
@@ -24,6 +24,7 @@ def renderAudio(text, name, voicename):
             print("Error details: {}".format(cancellation_details.error_details))
 
 def createVoiceOver(text, options):
+
     if (options['english'] == 'True'):
         voicename = "en-US-BrandonNeural"
     else:

@@ -6,10 +6,19 @@ import services.videoservice as videoservice
 import services.movieservice as movieservice
 import services.uploadservice as uploadservice
 import scope
-import os
+import os, shutil
 
 def run(options):
     article = createArticle(options)
+    finalcut = f"{scope.basedir}/{options['title']}-final.mp4"
+    found = os.path.isfile(finalcut)
+    if (found):
+        shutil.copyfile(finalcut, f"Finalizados/{options['title']}-final.mp4")
+        shutil.copyfile(scope.articlepath, f"Finalizados/{options['title']}.txt")
+        shutil.copyfile(f"{scope.basedir}/scene-1.jpg", f"Finalizados/{options['title']}-thumb.jpg")
+        createUpload(article, options)    
+        return
+
     scope.totalScenes = len(article.split("."))
     if (options['short'] == 'True'):
         duration = moreThanOneMinute(article, options)
@@ -51,7 +60,7 @@ def createVideo(options):
     movieservice.createVideo(options)
 
 def createVoice(article, options):
-
+    
     if (hasMp3files(article)):
         print("voice exists")
         return
