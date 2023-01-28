@@ -8,32 +8,32 @@ import services.uploadservice as uploadservice
 import scope
 import os, shutil
 
-def run(options):
-    article = createArticle(options)
-    finalcut = f"{scope.basedir}/{options['title']}-final.mp4"
-    found = os.path.isfile(finalcut)
+def run():
+    article = createArticle()
+    found = os.path.isfile(scope.finalcut)
+
     if (found):
-        shutil.copyfile(finalcut, f"Finalizados/{options['title']}-final.mp4")
-        shutil.copyfile(scope.articlepath, f"Finalizados/{options['title']}.txt")
-        shutil.copyfile(f"{scope.basedir}/scene-1.jpg", f"Finalizados/{options['title']}-thumb.jpg")
-        createUpload(article, options)    
+        shutil.copyfile(scope.finalcut, f"Finalizados/{scope.options['title']}-final.mp4")
+        shutil.copyfile(scope.articlepath, f"Finalizados/{scope.options['title']}.txt")
+        shutil.copyfile(f"{scope.basedir}/scene-1.jpg", f"Finalizados/{scope.options['title']}-thumb.jpg")
+        createUpload(article)    
         return
 
     scope.totalScenes = len(article.split("."))
-    if (options['short'] == 'True'):
-        duration = moreThanOneMinute(article, options)
+    if (scope.options['short'] == 'True'):
+        duration = moreThanOneMinute(article, scope.options)
         if (duration):
             print("the article has more than 1 minute")
             return
 
-    createVoice(article, options)
-    createImages(article, options)
-    createVideo(options)
-    createUpload(article, options)
+    createVoice(article)
+    createImages(article)
+    createVideo()
+    createUpload(article)
 
-def createUpload(article, options):
-    print(f"[create upload {options['title']}.json]")
-    uploadservice.buildUpload(article, options)
+def createUpload(article):
+    print(f"[create upload {scope.options['title']}.json]")
+    uploadservice.buildUpload(article, scope.options)
 
 
 def moreThanOneMinute(article, options):
@@ -53,31 +53,31 @@ def hasMp3files(article):
     
     return len(list) >= lines
 
-def createImages(article, options):
-    movieservice.createImages(article, options)
+def createImages(article):
+    movieservice.createImages(article, scope.options)
 
-def createVideo(options):
-    movieservice.createVideo(options)
+def createVideo():
+    movieservice.createVideo(scope.options)
 
-def createVoice(article, options):
+def createVoice(article):
     
     if (hasMp3files(article)):
         print("voice exists")
         return
     
     print("[creating voice...]")
-    voiceprovider.createVoiceOver(article, options)
+    voiceprovider.createVoiceOver(article, scope.options)
 
-def createArticle(options):
+def createArticle():
     if (scope.hasArticle):
-        print(f"article exists: {options['title']}")
+        print(f"article exists: {scope.options['title']}")
         f = open(scope.articlepath, 'r')
         article = f.read()
         f.close()
         return article
 
-    print(f"[creating article: {options['title']}]")
-    article = articleprovider.generateArticle(options).strip()
+    print(f"[creating article: {scope.options['title']}]")
+    article = articleprovider.generateArticle(scope.options).strip()
     f = open(scope.articlepath, "w")
     f.write(article)
     f.close()

@@ -45,25 +45,23 @@ def article(
 
     articlebuilder.run(options)
 
-def runmovie(options):
-    scope.basedir = f"_output/{options['title']}"
+def runmovie():
+    scope.basedir = f"_output/{scope.options['title']}"
 
     os.makedirs("_output", exist_ok=True)
     os.makedirs(scope.basedir, exist_ok=True)
 
-    options['single'] = 'False'
-    options['short'] = 'False'
-    options['english'] = 'False'
+    scope.options['single'] = 'False'
 
-    scope.articlepath = f"{scope.basedir}/{options['title']}.txt"
-    scope.audiopath_single = f"{scope.basedir}/{options['title']}.mp3"
+    scope.articlepath = f"{scope.basedir}/{scope.options['title']}.txt"
+    scope.audiopath_single = f"{scope.basedir}/{scope.options['title']}.mp3"
     
-    scope.finalcut = f"{scope.basedir}/{options['title']}.mp4"
+    scope.finalcut = f"{scope.basedir}/{scope.options['title']}.mp4"
     scope.hasArticle = os.path.isfile(scope.articlepath)
     scope.hasSingleAudio = os.path.isfile(scope.audiopath_single)
     scope.ismovie = True
 
-    moviebuilder.run(options)
+    moviebuilder.run()
 
 
 @yaspin(text="[movie for movie.config]\n")
@@ -81,13 +79,15 @@ def movie(batch: bool = False):
         for options in list:
             print(f"[position: {x}/{len(list)}]")
             try:
-                runmovie(options)
+                scope.options = options
+                runmovie()
                 x+=1
             except:
-                print(f"******** erro {options['title']}")
+                print(f"******** erro {scope.options['title']}")
     else:
         options = list[0]
-        runmovie(options)
+        scope.options = options
+        runmovie()
             
 
     

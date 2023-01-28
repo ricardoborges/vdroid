@@ -17,3 +17,5 @@ totalScenes = 1
 black = "static/black.jpg"
 
 posterFound = False
+
+options = {}

@@ -1,8 +1,8 @@
 from moviepy.editor import *
-
+import services.imageservice as imageservice
 import providers.movieimgprovider as movieimgprovider
 import scope
-import shutil
+import shutil, pprint
 
 def countVideos():
     list = []
@@ -29,7 +29,7 @@ def hasScenes():
     return countScenes() >= scope.totalScenes    
 
 def createImages(article, options):
-    hasPoster = os.path.isfile(f"{scope.basedir}/scene-1.jpg")
+    hasPoster = os.path.isfile(f"{scope.basedir}/poster.jpg")
 
     if (hasPoster):
         print("[poster exists]")
@@ -38,39 +38,54 @@ def createImages(article, options):
 
     totalInDisk = countScenes()
 
-    if (hasScenes()):
-        print("scenes exists")
-    else:
-        print("[creating videos]")
-        movieimgprovider.getScenes(options, scope.totalScenes, totalInDisk)
+    #if (hasScenes()):
+    ##    print("scenes exists")
+    #else:
+    print("[creating videos]")
+    movieimgprovider.getScenes(options, scope.totalScenes, totalInDisk)
 
 def createVideo( options):
     if (hasVideos()):
         print("videos exists")
     else:
         totalVideos = countVideos()
-        if (totalVideos == 0):
-            totalVideos = 1
 
-        i = totalVideos
+        i = totalVideos 
+        scope.totalScenes = scope.totalScenes - i
+
+        images = imageservice.select_images()
+
+        
+
+
+        if (len(images) < scope.totalScenes):
+            images = images + images + images
+
         for item in range(scope.totalScenes):  
-            print(f"[create video scene {scope.basedir}/scene-{i}.mp4")
-            createVideoScene(i, options)
+            print(f"[create video scene {scope.basedir}/scene-{i+1}.mp4")
+            createVideoScene(i, images[i])
             i+=1
 
     createFinalCut(options)
 
 
 
-def createVideoScene(i, options):
-    found = os.path.isfile(f"{scope.basedir}/scene-{i}.jpg")
+def createVideoScene(i, image):
+    found = os.path.isfile(image['path'])
 
     if (not found):
         return
 
-    audio = f"{scope.basedir}/audio-{i}.mp3"
-    image = f"{scope.basedir}/scene-{i}.jpg"
-    scene = f"{scope.basedir}/scene-{i}.mp4"
+    os.makedirs(f"{scope.basedir}/scenes/", exist_ok=True)
+    shutil.copy(image['path'], f"{scope.basedir}/scenes/{image['filename']}")
+
+    #print(image)
+    #sys.exit()
+
+
+    audio = f"{scope.basedir}/audio-{i+1}.mp3"
+    image = image['path']
+    scene = f"{scope.basedir}/scene-{i+1}.mp4"
 
     audio_clip = AudioFileClip(audio)
     audio_duration = audio_clip.duration
@@ -82,10 +97,8 @@ def createVideoScene(i, options):
 
     clip = image_clip.set_audio(audio_clip)
 
-    if (options['short'] == 'True'):
-        video = CompositeVideoClip([clip], size =(1080, 1920))
-    else:
-        video = CompositeVideoClip([clip])
+    video = CompositeVideoClip([clip])
+
     video = video.write_videofile(scene, fps=24)
 
 
@@ -111,5 +124,9 @@ def createFinalCut(options):
 
     shutil.copyfile(finalcut, f"Finalizados/{options['title']}-final.mp4")
     shutil.copyfile(scope.articlepath, f"Finalizados/{options['title']}.txt")
-    shutil.copyfile(f"{scope.basedir}/scene-1.jpg", f"Finalizados/{options['title']}-thumb.jpg")
+
+    if (scope.posterFound):
+        shutil.copyfile(f"{scope.basedir}/poster.jpg", f"Finalizados/{options['title']}-thumb.jpg")
+    else:
+        shutil.copyfile(f"{scope.basedir}/scene-1.jpg", f"Finalizados/{options['title']}-thumb.jpg")
     return

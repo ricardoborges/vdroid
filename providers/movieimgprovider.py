@@ -4,9 +4,10 @@ import scope
 import shutil
 from PIL import Image
 import sys, os
-
+from py_linq import Enumerable
 
 def getPoster(options):
+
     scope.posterFound = False
     subscriptionKey = "cc3f3efaad72405a841acecc1e90c375"
     endpoint = "https://api.bing.microsoft.com/v7.0/search"
@@ -72,12 +73,6 @@ def getScenes(options, max, totalInDisc):
     
     params = {"q": word, "mkt": mkt, "size":"large"}
     
-    vdroid_scene = "static/vdroid_scene.jpg"
-
-    if (options['short'] == 'True'):
-        params['aspect'] = "tall"
-        vdroid_scene = "static/vdroid_short.jpg"
-
     headers = {'Ocp-Apim-Subscription-Key': subscriptionKey}
 
     try:
@@ -99,12 +94,12 @@ def getScenes(options, max, totalInDisc):
             i = 1
 
         for item in search_results["images"]["value"]:
-            if (i > max):
+            if (i > max + 4):
             #    x = i - 1
             #    shutil.copy(vdroid_scene, f"{scope.basedir}/scene-{x}.jpg")
                 return
             try:
-                save(item["contentUrl"], i, options)
+                save(item["contentUrl"], i)
                 image = Image.open(f"{scope.basedir}/scene-{i}.jpg")
                 i+=1
             except IOError:
@@ -116,7 +111,7 @@ def getScenes(options, max, totalInDisc):
         return scope.black
 
 
-def save(url, index, options):
+def save(url, index):
     print(f"dowloading {scope.basedir}/scene-{index}.jpg...")
     response = requests.get(url, stream=True)
     with open(f"{scope.basedir}/scene-{index}.jpg", 'wb') as out_file:
@@ -125,13 +120,11 @@ def save(url, index, options):
     del response    
 
 def savePoster(url):
-    print(f"dowloading {scope.basedir}/scene-1.jpg...")
+    print(f"dowloading poster...")
     response = requests.get(url, stream=True)
-    with open(f"{scope.basedir}/scene-1.jpg", 'wb') as out_file:
+    with open(f"{scope.basedir}/poster.jpg", 'wb') as out_file:
         shutil.copyfileobj(response.raw, out_file)
 
     del response    
     scope.posterFound = True
 
-#if __name__ == "__main__":
-#    getBingImage("de volta para o futuro", False)

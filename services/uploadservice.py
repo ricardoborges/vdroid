@@ -25,6 +25,3 @@ def buildUpload(article, options):
     with open(f"Finalizados/{options['title']}.json", "w") as outfile:
         json.dump(upload, outfile)
 
-#    json_object = json.dumps(upload, indent=4)
-##    with open(f"Finalizados/{options['title']}.json", "wb") as outfile:
-#        outfile.write(json_object)
