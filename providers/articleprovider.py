@@ -16,6 +16,14 @@ def generateArticle(options):
             prompt = f"escreva um resumo do filme {options['title']}"
         response = create(prompt, options)
 
+    if (scope.isbook):
+        if (options['english'] == 'True'):
+            prompt = f"write a summary of the book {options['title']}"
+        else:
+            prompt = f"escreva um resumo do livro {options['title']}"
+        response = create(prompt, options)
+        
+
     result = response['choices'][0].text
     result = setup(result)
     return result

@@ -13,8 +13,8 @@ def run():
     if (found):
         shutil.copyfile(scope.finalcut, f"Finalizados/{scope.options['title']}-final.mp4")
         shutil.copyfile(scope.article_path, f"Finalizados/{scope.options['title']}.txt")
-        shutil.copyfile(f"{scope.base_working_dir}/scene-1.jpg", f"Finalizados/{scope.options['title']}-thumb.jpg")
-        createUpload(article)    
+        #shutil.copyfile(f"{scope.base_working_dir}/scene-1.jpg", f"Finalizados/{scope.options['title']}-thumb.jpg")
+        #createUpload(article)    
         return
 
     scope.totalScenes = len(article.split("."))
@@ -26,12 +26,12 @@ def run():
 
     createVoice(article)
     createImages()
-    createVideo()
-    createUpload(article)
+    #createVideo()
+    #createUpload(article)
 
-def createUpload(article):
-    print(f"[create upload {scope.options['title']}.json]")
-    uploadservice.buildUpload(article)
+#def createUpload(article):
+#    print(f"[create upload {scope.options['title']}.json]")
+#    uploadservice.buildUpload(article)
 
 
 def moreThanOneMinute(article):
@@ -54,8 +54,8 @@ def hasMp3files(article):
 def createImages():
     movieservice.createImages()
 
-def createVideo():
-    movieservice.createVideo()
+#def createVideo():
+#    movieservice.createVideo()
 
 def createVoice(article):
     

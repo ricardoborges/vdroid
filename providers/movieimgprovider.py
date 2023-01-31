@@ -55,21 +55,29 @@ def getPoster(options):
 
 def countScenes():
     list = []
-    for root, dirs, files in os.walk(scope.basedir):
+    for root, dirs, files in os.walk(scope.base_working_dir):
         for file in files:
             if file.endswith(".jpg"):
                 list.append(os.path.join(root, file))
 
-def getScenes(options, max, totalInDisc):
+def getScenes(max, totalInDisc):
     subscriptionKey = "cc3f3efaad72405a841acecc1e90c375"
     endpoint = "https://api.bing.microsoft.com/v7.0/search"
 
-    if (options['english'] == 'True'):
+    if (scope.options['english'] == 'True'):
         mkt = "en-US"
-        word = "scenes of the movie " + options['title']
+        if (scope.ismovie):
+            word = "scenes of the movie " + scope.options['title']
+        if (scope.isbook):
+            word = "book " + scope.options['title']
+        
     else:
         mkt = "pt-BR"
-        word = "cenas do filme " + options['title']
+        if (scope.ismovie):
+            word = "cenas do filme " + scope.options['title']
+        if (scope.isbook):
+            word = "livro " + scope.options['title']
+
     
     params = {"q": word, "mkt": mkt, "size":"large"}
     
@@ -100,7 +108,7 @@ def getScenes(options, max, totalInDisc):
                 return
             try:
                 save(item["contentUrl"], i)
-                image = Image.open(f"{scope.basedir}/scene-{i}.jpg")
+                image = Image.open(f"{scope.base_working_dir}/scene-{i}.jpg")
                 i+=1
             except IOError:
                 print(f"bad img! {item['contentUrl']}")
@@ -112,9 +120,9 @@ def getScenes(options, max, totalInDisc):
 
 
 def save(url, index):
-    print(f"dowloading {scope.basedir}/scene-{index}.jpg...")
+    print(f"dowloading {scope.base_working_dir}/scene-{index}.jpg...")
     response = requests.get(url, stream=True)
-    with open(f"{scope.basedir}/scene-{index}.jpg", 'wb') as out_file:
+    with open(f"{scope.base_working_dir}/scene-{index}.jpg", 'wb') as out_file:
         shutil.copyfileobj(response.raw, out_file)
 
     del response    
@@ -122,7 +130,7 @@ def save(url, index):
 def savePoster(url):
     print(f"dowloading poster...")
     response = requests.get(url, stream=True)
-    with open(f"{scope.basedir}/poster.jpg", 'wb') as out_file:
+    with open(f"{scope.base_working_dir}/poster.jpg", 'wb') as out_file:
         shutil.copyfileobj(response.raw, out_file)
 
     del response    

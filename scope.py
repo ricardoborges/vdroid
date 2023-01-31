@@ -1,11 +1,11 @@
-basedir = ""
-articlepath = ""
+base_working_dir = ""
+article_path = ""
 audiopath_single = ""
 imagepath_single = ""
 finalcut = ""
 
-hasArticle = False
-hasSingleAudio = False
+has_article = False
+has_single_audio = False
 hasSingleImage = False
 
 ismovie = False

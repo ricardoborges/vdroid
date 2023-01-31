@@ -23,16 +23,15 @@ def renderAudio(text, name, voicename):
         if cancellation_details.reason == speechsdk.CancellationReason.Error:
             print("Error details: {}".format(cancellation_details.error_details))
 
-def createVoiceOver(text, options):
+def createVoiceOver(text):
 
-    if (options['english'] == 'True'):
+    if (scope.options['english'] == 'True'):
         voicename = "en-US-BrandonNeural"
     else:
         voicename = "pt-BR-AntonioNeural"
         #voicename = "pt-BR-BrendaNeural"
 
-    if (options['single'] == 'True'):
-        #scope.script['singleaudiopath'] = f"_output/{options['folder']}/{options['folder']}.mp3"
+    if (scope.options['single'] == 'True'):
         renderAudio(text, scope.audiopath_single, voicename)
         return
 
@@ -40,12 +39,12 @@ def createVoiceOver(text, options):
 
     i=1
     for item in list:
-        renderAudio(item, f"{scope.basedir}/audio-{i}.mp3", voicename)
+        renderAudio(item, f"{scope.base_working_dir}/audio-{i}.mp3", voicename)
         i+=1
 
     
-def createSingleVoiceOver(text, options):
-    if (options['english'] == 'True'):
+def createSingleVoiceOver(text):
+    if (scope.options['english'] == 'True'):
         voicename = "en-US-BrandonNeural"
     else:
         voicename = "pt-BR-AntonioNeural"

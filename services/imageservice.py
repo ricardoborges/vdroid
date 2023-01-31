@@ -23,7 +23,7 @@ def get_file_length(file_path):
 
 def imagesInDisc():
     list = []
-    for root, dirs, files in os.walk(scope.basedir):
+    for root, dirs, files in os.walk(scope.base_working_dir):
         for file in files:
             if file.endswith(".jpg"):
                 path = os.path.join(root, file)
@@ -46,7 +46,7 @@ def select_images():
 
     if (scope.posterFound):
         try:
-            path = f"{scope.basedir}/poster.jpg"
+            path = f"{scope.base_working_dir}/poster.jpg"
             w,h  = imageResolution(path)
             length = get_file_length(path)
             result = [{'path':path, 'filename': "poster.jpg", 'isvertical': is_vertical(path), 'width':w, 'height':h, 'length': length}] + list
