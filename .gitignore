@@ -128,8 +128,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-#media
-_output
+#media output
+_output/
+Finalizados/
 Uploaded/
 *.mp3
 *.mp4
