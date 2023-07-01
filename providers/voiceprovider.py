@@ -1,11 +1,9 @@
 import azure.cognitiveservices.speech as speechsdk
-import scope, sys
-
-key = "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"
+import scope, os
 
 def renderAudio(text, name, voicename):
-    speech_key = "726c5178ff724ac2a936950de3f90525"
-    service_region = "brazilsouth"
+    speech_key = os.environ.get("AZURE_SPEECH_API_KEY")
+    service_region = os.environ.get("SERVICE_REGION_NAME")
 
     speech_config = speechsdk.SpeechConfig(subscription=speech_key, region=service_region)
     speech_config.speech_synthesis_voice_name = voicename

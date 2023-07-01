@@ -3,13 +3,14 @@ import requests
 import scope
 import shutil
 from PIL import Image
-import sys, os
+import  os
 from py_linq import Enumerable
 
 def getPoster(options):
 
     scope.posterFound = False
-    subscriptionKey = "cc3f3efaad72405a841acecc1e90c375"
+    subscriptionKey = os.environ.get("BING_API_KEY")
+
     endpoint = "https://api.bing.microsoft.com/v7.0/search"
 
     if (options['english'] == 'True'):
@@ -61,7 +62,8 @@ def countScenes():
                 list.append(os.path.join(root, file))
 
 def getScenes(max, totalInDisc):
-    subscriptionKey = "cc3f3efaad72405a841acecc1e90c375"
+    subscriptionKey = os.environ.get("BING_API_KEY")
+
     endpoint = "https://api.bing.microsoft.com/v7.0/search"
 
     if (scope.options['english'] == 'True'):

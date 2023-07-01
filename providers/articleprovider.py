@@ -1,7 +1,9 @@
 import openai, re
 import scope
+import os
+import pprint
 
-key = "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"
+key = os.environ.get("OPENAI_API_KEY")
 
 openai.api_key = key
 
@@ -24,8 +26,8 @@ def generateArticle(options):
         response = create(prompt, options)
         
 
-    result = response['choices'][0].text
-    result = setup(result)
+    #result = response['choices'][0].text
+    result = setup(response)
     return result
 
 def generateRules(name, english):
@@ -40,21 +42,31 @@ def generateRules(name, english):
 
 
 def create(promptTxt, options):
-    max = 800
-    if (options['short'] == "True"):
-        max = 300
+    #max = 800
+    #if (options['short'] == "True"):
+    #    max = 300
 
-    response = openai.Completion.create(
-        model="text-davinci-003",
-        prompt=promptTxt,
-        temperature=0,
-        max_tokens=max,
-        top_p=1.0,
-        frequency_penalty=0.0,
-        presence_penalty=0.0
-    )
+    #response = openai.Completion.create(
+    #    model="text-davinci-003",
+    #    prompt=promptTxt,
+    #    temperature=0,
+    #    max_tokens=max,
+    #    top_p=1.0,
+    #    frequency_penalty=0.0,
+    #    presence_penalty=0.0
+    #)
     
-    return response
+    #return response
+    response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": "Você é um assistente de IA especializado em criar artigos resumos sobre filmes e series. responda em ingles ou portugues de acordo com o prompt do usuario"},
+                    {"role": "user", "content": f"{promptTxt}"},
+                ],
+                temperature=0.1,
+            )
+
+    return response.choices[0].message.content    
 
 def setup(txt):
     txt = remove_parenteses(txt)
