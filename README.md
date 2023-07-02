@@ -5,6 +5,7 @@ This is a Python application designed to generate video summaries of movies or b
 <p align="center">
   <img src="https://github.com/ricardoborges/vdroid/assets/404572/6eafd2c1-4834-436a-98bb-06d02f95f224" width="500">
 </p>
+
 ## Prerequisites
 
 This application requires Python 3.8 or later, and the following API keys:
