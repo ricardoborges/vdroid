@@ -20,12 +20,12 @@ pip install -r requirements.txt
 
 ## API KEYS
 
-You should provide the api keys for openai, bing search and azure speech services:
+You should setup enviroment variables for the api keys: 
 
-OPENAI_API_KEY=
-BING_API_KEY=
-AZURE_SPEECH_KEY=
-SERVICE_REGION_NAME=
+- OPENAI_API_KEY=
+- BING_API_KEY=
+- AZURE_SPEECH_KEY=
+- SERVICE_REGION_NAME=
 
 ## Usage
 
