@@ -28,21 +28,26 @@ python main.py movie
 
 python main.py movie --batch
 
-
 **For books:**
 python main.py book
 
 **For batch processing of books:**
 python main.py book --batch
 
-
 In the `movie.config` and `book.config` files, each title should be in the following format:
 
 [
-  {
-    "title": "Title here"
-  },
-  ...
+{
+"title": "Title here", // The title of the movie
+"english": "True|False", // The language of the generated summary
+"short": "True|False" // if short the bing search will prioritize vertical images
+},
+...
+]
+
+Example:
+[
+{ "title": "Back to the Future", "english":"True", "short":"False" }
 ]
 
 ## Features
