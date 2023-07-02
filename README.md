@@ -17,6 +17,15 @@ Additionally, you'll need to install certain Python libraries. You can install a
 
 pip install -r requirements.txt
 
+## API KEYS
+
+You should provide the api keys for openai, bing search and azure speech services:
+
+OPENAI_API_KEY=
+BING_API_KEY=
+AZURE_SPEECH_KEY=
+SERVICE_REGION_NAME=
+
 ## Usage
 
 This application can be run either in single or batch mode. In single mode, it generates a summary for one movie or book. In batch mode, it processes a list of movies or books provided in the configuration files `movie.config` and `book.config` respectively.
@@ -60,6 +69,12 @@ Here are the main features of the application:
 - Creates a text summary of a movie or a book using GPT.
 - Uses Azure Speech to generate a narrative voice for the summary.
 - Searches Bing for images related to the movie or book.
+
+## TODO 
+
+- Create voice provider using eleven labs
+- Create dall-e image generation option
+- Create google image search option
 
 ## Contributing
 
