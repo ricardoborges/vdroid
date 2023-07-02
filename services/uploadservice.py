@@ -14,13 +14,13 @@ def buildUpload(article):
         "--default-language": "pt-br",
         "--default-audio-language": "pt-br",
         "--privacy": "private",
-        "--thumbnail": f"Finalizados/{scope.options['title']}-thumb.jpg",
+        "--thumbnail": f"Finished/{scope.options['title']}-thumb.jpg",
         "--playlist": "Resumo de Filmes",
         "--embeddable": "True",
         "--madeForKids": "False",
-        f"Finalizados/{scope.options['title']}-final.mp4": ""
+        f"Finished/{scope.options['title']}-final.mp4": ""
     }
 
-    with open(f"Finalizados/{scope.options['title']}.json", "w") as outfile:
+    with open(f"Finished/{scope.options['title']}.json", "w") as outfile:
         json.dump(upload, outfile)
 

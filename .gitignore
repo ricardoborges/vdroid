@@ -130,7 +130,7 @@ dmypy.json
 
 #media output
 _output/
-Finalizados/
+#Finished/
 Uploaded/
 *.mp3
 *.mp4

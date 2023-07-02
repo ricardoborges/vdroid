@@ -11,9 +11,9 @@ def run():
     found = os.path.isfile(scope.finalcut)
 
     if (found):
-        shutil.copyfile(scope.finalcut, f"Finalizados/{scope.options['title']}-final.mp4")
-        shutil.copyfile(scope.article_path, f"Finalizados/{scope.options['title']}.txt")
-        shutil.copyfile(f"{scope.base_working_dir}/scene-1.jpg", f"Finalizados/{scope.options['title']}-thumb.jpg")
+        shutil.copyfile(scope.finalcut, f"Finished/{scope.options['title']}-final.mp4")
+        shutil.copyfile(scope.article_path, f"Finished/{scope.options['title']}.txt")
+        shutil.copyfile(f"{scope.base_working_dir}/scene-1.jpg", f"Finished/{scope.options['title']}-thumb.jpg")
         createUpload(article)    
         return
 

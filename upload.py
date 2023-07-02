@@ -4,7 +4,7 @@ import subprocess
 
 def uploadfiles():
     list = []
-    for root, dirs, files in os.walk("Finalizados/"):
+    for root, dirs, files in os.walk("Finished/"):
         for file in files:
             if file.endswith(".json"):
                 list.append(os.path.join(root, file))
@@ -36,7 +36,7 @@ def doUpload(item):
     cmd = buildCmd(item)
     print(f"[uploading {item['--title']}...]")
     print(subprocess.check_output(cmd))
-    shutil.copyfile(f"Finalizados/{item['--title']}.json", f"Uploaded/{item['--title']}.json")
+    shutil.copyfile(f"Finished/{item['--title']}.json", f"Uploaded/{item['--title']}.json")
 
 def main():
     print("[start]")
