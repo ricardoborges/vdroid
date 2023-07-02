@@ -66,6 +66,7 @@ Example:
 
 Here are the main features of the application:
 
+- Work in progress for books
 - Creates a text summary of a movie or a book using GPT.
 - Uses Azure Speech to generate a narrative voice for the summary.
 - Searches Bing for images related to the movie or book.
