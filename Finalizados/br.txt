@@ -1,7 +1,0 @@
-
-filmes classicos:
-	- de volta para o futuro
-	- Psicose
-animes:
-	- Akira
-

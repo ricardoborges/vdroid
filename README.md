@@ -1,6 +1,6 @@
 # vdroid - Movie and Book Summary Generator
 
-This is a Python application designed to generate video summaries of movies or books from their titles. It uses GPT for text generation, Azure Speech for narrative voice generation, and Bing for image search.
+This is a IA Python application designed to generate video summaries of movies or books from their titles. It uses chatGPT for text generation, Azure Speech for narrative voice generation, and Bing for image search.
 
 <p align="center">
   <img src="https://github.com/ricardoborges/vdroid/assets/404572/6eafd2c1-4834-436a-98bb-06d02f95f224" width="500">
