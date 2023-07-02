@@ -3,7 +3,7 @@
 This is a IA Python application designed to generate video summaries of movies or books from their titles. It uses chatGPT for text generation, Azure Speech for narrative voice generation, and Bing for image search.
 
 <p align="center">
-  <img src="https://github.com/ricardoborges/vdroid/assets/404572/6eafd2c1-4834-436a-98bb-06d02f95f224" width="500">
+  <img src="https://github.com/ricardoborges/vdroid/assets/404572/e5811317-2744-41ba-8d8b-075c80a99541" width="500">
 </p>
 
 ## Prerequisites
