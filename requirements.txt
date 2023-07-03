@@ -3,3 +3,4 @@ moviepy
 openai
 azure.cognitiveservices.speech
 py_linq
+python-dotenv

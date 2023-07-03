@@ -134,3 +134,5 @@ Finalizados/
 Uploaded/
 *.mp3
 *.mp4
+
+./.env
