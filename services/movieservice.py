@@ -120,11 +120,11 @@ def createFinalCut():
     final_video = concatenate_videoclips(clips, method="compose")
     final_video = final_video.write_videofile(finalcut)
 
-    shutil.copyfile(finalcut, f"Finalizados/{scope.options['title']}-final.mp4")
-    shutil.copyfile(scope.article_path, f"Finalizados/{scope.options['title']}.txt")
+    shutil.copyfile(finalcut, f"Finished/{scope.options['title']}-final.mp4")
+    shutil.copyfile(scope.article_path, f"Finished/{scope.options['title']}.txt")
 
     if (scope.posterFound):
-        shutil.copyfile(f"{scope.base_working_dir}/poster.jpg", f"Finalizados/{scope.options['title']}-thumb.jpg")
+        shutil.copyfile(f"{scope.base_working_dir}/poster.jpg", f"Finished/{scope.options['title']}-thumb.jpg")
     else:
-        shutil.copyfile(f"{scope.base_working_dir}/scene-1.jpg", f"Finalizados/{scope.options['title']}-thumb.jpg")
+        shutil.copyfile(f"{scope.base_working_dir}/scene-1.jpg", f"Finished/{scope.options['title']}-thumb.jpg")
     return

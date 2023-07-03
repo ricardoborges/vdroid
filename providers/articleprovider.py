@@ -42,9 +42,9 @@ def generateRules(name, english):
 
 
 def create(promptTxt, options):
-    #max = 800
-    #if (options['short'] == "True"):
-    #    max = 300
+    max = 600
+    if (options['short'] == "True"):
+        max = 300
 
     #response = openai.Completion.create(
     #    model="text-davinci-003",
@@ -60,7 +60,7 @@ def create(promptTxt, options):
     response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
                 messages=[
-                    {"role": "system", "content": "Você é um assistente de IA especializado em criar artigos resumos sobre filmes e series. responda em ingles ou portugues de acordo com o prompt do usuario"},
+                    {"role": "system", "content": f"You are an AI assistant specialized in creating short articles about movies and series. answer in english or portuguese according to the user's prompt. write a maximum of {max} words"},
                     {"role": "user", "content": f"{promptTxt}"},
                 ],
                 temperature=0.1,
