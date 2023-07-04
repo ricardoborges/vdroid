@@ -2,11 +2,11 @@ import typer, os, json
 import builders.moviebuilder as moviebuilder
 import builders.bookbuilder as bookbuilder
 import scope
-from dotenv import load_dotenv
+import sys
+
 
 app = typer.Typer()
 
-load_dotenv()
 
 #@app.command()
 #def article(

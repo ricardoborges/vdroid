@@ -2,6 +2,8 @@ import openai, re
 import scope
 import os
 import pprint
+from dotenv import load_dotenv
+load_dotenv()
 
 key = os.environ.get("OPENAI_API_KEY")
 
